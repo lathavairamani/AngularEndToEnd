@@ -14,7 +14,7 @@ export class UserService implements CanActivate {
       apiKey: "AIzaSyABtu3aEa8STqgQhTRTLVIZlbdGAg1GMlo",
       authDomain: "gigabytegames-4544c.firebaseapp.com",
       databaseURL: "https://gigabytegames-4544c.firebaseio.com",
-      projectId: "gigabytegames-4544c",
+   //   projectId: "gigabytegames-4544c",
       storageBucket: "gigabytegames-4544c.appspot.com",
       messagingSenderId: "707631163190"
     };

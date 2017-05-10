@@ -7,7 +7,7 @@ export class BlogAdminService{
   
   createPost(post: Blog){
     let storageRef = firebase.storage().ref();
-    storageRef.child(`image/${post.imgTitle}`).putString(post.img, 'base64').
+    storageRef.child(`images/${post.imgTitle}`).putString(post.img, 'base64').
       then((snapshot) => {
         let url = snapshot.metadata.downloadURLs[0];
         let dbRef = firebase.database().ref('blogPosts/');
@@ -18,11 +18,31 @@ export class BlogAdminService{
           imgTitle: post.imgTitle,
           img: url,
           id: newPost.key
-        })
+        });
       }) 
     .catch((error) => {
       alert(`failed upload: ${error}`);
     })
+  }
+  
+  editPost(update:Blog){
+    let dbRef = firebase.database().ref('blogPosts/').child(update.id).
+        update({
+          title: update.title,
+          content: update.content
+        })
+    alert('post updated');
+  }
+  
+  removePost(deletePost: Blog){
+    let dbRef = firebase.database().ref('blogPosts/').child(deletePost.id).remove();
+    alert('post deleted');
+    let imageRef = firebase.storage().ref().child(`images/${deletePost.imgTitle}`)
+        .delete().then(function(){
+          alert(`${deletePost.imgTitle} was deleted from the storage`);
+        }).catch(function(error) {
+          alert(`Error unable to delete ${deletePost.imgTitle}`);
+        });
   }
   
 }
